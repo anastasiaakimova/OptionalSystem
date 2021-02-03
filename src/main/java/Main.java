@@ -2,7 +2,7 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String [] args) {
+    public static void main(String[] args) {
         Connection con = null;
         Statement st = null;
         ResultSet rs = null;
@@ -36,6 +36,7 @@ public class Main {
                                     + rs.getString("courseName")
                                     + "\t" + rs.getString("nameOfTeacher"));
                         }
+                        showMenu();
                         break;
                     case 2:
                         System.out.println("Просмотр записанных студентов на курс:" + "\n");
@@ -45,6 +46,7 @@ public class Main {
                             System.out.println("\t" + rs.getString("courseName")
                                     + "\t" + rs.getString("studentName"));
                         }
+                        showMenu();
                         break;
                     case 3:
                         System.out.println("Просмотр рейтинга студентов " + "\n");
@@ -54,16 +56,29 @@ public class Main {
                             System.out.println("\t" + rs.getString("studentName")
                                     + "\t" + rs.getInt("assessment"));
                         }
+                        showMenu();
                         break;
                     case 4:
                         System.out.println("Запись на курс:");
                         System.out.println("Введите фамилию и инициалы");
                         studentName = scanner2.nextLine();
-                        System.out.println("Введите номер курса");
+                        // choice of course numbers
+                        System.out.println("Возможные курсы:");
+                        rs = st.executeQuery("SELECT course.id, courseName, nameOfTeacher FROM course \n" +
+                                "INNER JOIN teacher ON teacher.id = course.id");
+                        while (rs.next()) {
+                            System.out.println("\t" + rs.getInt("course.id") + "\t"
+                                    + rs.getString("courseName")
+                                    + "\t" + rs.getString("nameOfTeacher"));
+                        }
+                        System.out.println("Введите номер курса:");
                         courseName = scanner.nextInt();
                         String query = "INSERT INTO student (studentName,id_cource) \n" +
                                 " VALUES (' " + studentName + "', '" + courseName + "')";
                         st.executeUpdate(query);
+                        System.out.println("Вы записаны на курс!");
+                        showMenu();
+                        //add update
                         break;
                     case 5:
                         System.out.println("До новых встреч!");
@@ -86,6 +101,7 @@ public class Main {
             }
         }
     }
+
     public static void showMenu() {
         System.out.println("Вы можете:" + "\n" +
                 "1 - Просмотр доступных курсов и ведущих преподавателей" + "\n" +
