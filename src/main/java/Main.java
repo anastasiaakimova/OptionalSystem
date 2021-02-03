@@ -46,6 +46,7 @@ public class Main {
                             System.out.println("\t" + rs.getString("courseName")
                                     + "\t" + rs.getString("studentName"));
                         }
+                        // add update
                         showMenu();
                         break;
                     case 3:
@@ -78,7 +79,6 @@ public class Main {
                         st.executeUpdate(query);
                         System.out.println("Вы записаны на курс!");
                         showMenu();
-                        //add update
                         break;
                     case 5:
                         System.out.println("До новых встреч!");
