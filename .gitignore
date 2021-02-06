@@ -1,4 +1,6 @@
-
+.idea
+      *.iml
+      target
 # Created by https://www.toptal.com/developers/gitignore/api/database,java,intellij,windows,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=database,java,intellij,windows,maven
 
